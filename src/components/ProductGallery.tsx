@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-// Importar as imagens diretamente
-import produto1 from '../assets/images/produto-1.jpeg';
-import produto2 from '../assets/images/produto-2.jpeg';
-import produto3 from '../assets/images/produto-3.jpeg';
-import produto4 from '../assets/images/produto-4.jpeg';
-import produto5 from '../assets/images/produto-5.jpeg';
-import produto6 from '../assets/images/produto-6.jpeg';
+// Usar caminhos públicos para as imagens
+const produto1 = '/images/produto-1.jpeg';
+const produto2 = '/images/produto-2.jpeg';
+const produto3 = '/images/produto-3.jpeg';
+const produto4 = '/images/produto-4.jpeg';
+const produto5 = '/images/produto-5.jpeg';
+const produto6 = '/images/produto-6.jpeg';
 
 interface ProductImage {
   id: number;
