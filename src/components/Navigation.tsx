@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import StrawberryLogo from './StrawberryLogo';
 import LanguageSelector from './LanguageSelector';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../contexts/LanguageContext';
 import { CartIcon, Cart } from './Cart';
 
 const Navigation: React.FC = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus } from 'lucide-react';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../hooks/useCart';
 import { db, Product } from '../lib/supabase';
 import { formatPrice } from '../lib/stripe';

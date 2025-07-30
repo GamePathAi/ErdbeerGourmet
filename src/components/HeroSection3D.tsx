@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../contexts/LanguageContext';
 import ThreeScene from './ThreeScene';
 import StrawberryIcon from './StrawberryIcon';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Importar as imagens diretamente
 import produto1 from '../assets/images/produto-1.jpeg';

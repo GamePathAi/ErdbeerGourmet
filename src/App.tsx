@@ -49,9 +49,6 @@ class ErrorBoundary extends React.Component<
 const HomePage: React.FC = () => {
   return (
     <>
-      <ErrorBoundary>
-        <Navigation />
-      </ErrorBoundary>
       <main>
         <ErrorBoundary>
           <HeroSection3D />
@@ -122,8 +119,16 @@ const AppComplete: React.FC = () => {
   return (
     <ErrorBoundary>
       <LanguageProvider>
-        <Router>
+        <Router
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true
+          }}
+        >
           <div className="App">
+            <ErrorBoundary>
+              <Navigation />
+            </ErrorBoundary>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/carrinho" element={<CartPage />} />
