@@ -1344,13 +1344,17 @@ h1, h2, h3 {
 }
 
 /* Animações suaves */
-.hero-section, .about-section, .pricing-section, .care-section, .company-section, .order-section {
+.hero-section, .about-section, .product-gallery-section, .pricing-section, .care-section, .company-section, .order-section {
     opacity: 0;
     animation: fadeInUp 1s ease forwards;
 }
 
 .about-section {
     animation-delay: 0.2s;
+}
+
+.product-gallery-section {
+    animation-delay: 0.3s;
 }
 
 .pricing-section {
