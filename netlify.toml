@@ -55,3 +55,31 @@
   [headers.values]
     Content-Type = "text/javascript; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/**/*.tsx"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/**/*.ts"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/src/**/*"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Content-Type = "image/svg+xml"
+
+[[headers]]
+  for = "*.ico"
+  [headers.values]
+    Content-Type = "image/x-icon"
