@@ -11,6 +11,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env.production
+.env.netlify
 ErdbeerGourmet-1/.env.production
 
 # Build outputs
