@@ -1,0 +1,8 @@
+# SPA fallback
+/*    /index.html   200
+
+# API routes to Netlify Functions
+/api/*  /.netlify/functions/:splat  200
+
+# Redirect apex domain to www (optional)
+# https://erdbeer-gourmet.com/*  https://www.erdbeer-gourmet.com/:splat  301!

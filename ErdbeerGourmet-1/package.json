@@ -1,0 +1,50 @@
+{
+  "name": "erdbeergourmet",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Website premium para ErdbeerGourmet - O doce artesanal que conquistou a Suíça",
+  "scripts": {
+    "dev": "vite",
+    "dev:api": "node server.cjs",
+    "dev:full": "concurrently \"npm run dev:api\" \"npm run dev\"",
+    "build": "vite build",
+    "build:prod": "vite build --mode production",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "sync:stripe": "tsx scripts/sync-stripe-products.ts",
+    "sync:stripe:dev": "dotenv -e .env.development -- tsx scripts/sync-stripe-products.ts",
+    "test:env": "dotenv -e .env.development -- tsx scripts/test-env.ts",
+    "check:db": "dotenv -e .env.development -- tsx scripts/check-database.ts"
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^4.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "lucide-react": "^0.400.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0",
+    "stripe": "^16.0.0",
+    "three": "^0.167.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/three": "^0.167.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "dotenv-cli": "^7.4.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4"
+  }
+}
