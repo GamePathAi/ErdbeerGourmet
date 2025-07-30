@@ -86,3 +86,19 @@
   for = "*.ico"
   [headers.values]
     Content-Type = "image/x-icon"
+
+[[headers]]
+  for = "*.jpeg"
+  [headers.values]
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Content-Type = "image/jpeg"
+    Cache-Control = "public, max-age=31536000"
