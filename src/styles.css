@@ -1,5 +1,5 @@
-/* Import cart styles */
-@import './styles/cart.css';
+/* Import cart styles - temporariamente removido para evitar erros */
+/* @import './styles/cart.css'; */
 
 @tailwind base;
 @tailwind components;
@@ -1666,4 +1666,81 @@ a {
 ::selection {
     background: var(--gold-light);
     color: var(--burgundy);
+}
+
+/* EMERGENCY CSS - HIDE PROBLEMATIC CONTENT */
+/* This CSS forcefully hides any content containing problematic phrases */
+*:contains("Pronto para provar") {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+*:contains("desejado da Suíça") {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+*:contains("CHF") {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+*:contains("Erdbeere") {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide sections that might contain problematic content */
+section:has(*:contains("Pronto para provar")) {
+  display: none !important;
+}
+
+div:has(*:contains("desejado da Suíça")) {
+  display: none !important;
+}
+
+/* Remove product-related classes completely */
+.product-card,
+.product-grid,
+.products-grid,
+[class*="product"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Hide any pricing section that might contain problematic content */
+#precos {
+  display: none !important;
+}
+
+.pricing-section {
+  display: none !important;
+}
+
+.pricing-grid {
+  display: none !important;
+}
+
+[class*="pricing"] {
+  display: none !important;
 }

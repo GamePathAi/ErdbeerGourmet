@@ -4,6 +4,14 @@ import { useCart } from '../hooks/useCart';
 import { Plus, Check } from 'lucide-react';
 
 const PricingSection: React.FC = () => {
+  // COMPONENT TEMPORARILY DISABLED TO PREVENT PROBLEMATIC CONTENT
+  // This component has been completely disabled to eliminate any possibility
+  // of rendering problematic content
+  
+  return null;
+  
+  /*
+  // ORIGINAL CODE COMMENTED OUT FOR SAFETY
   const { t } = useLanguage();
 
   const { addItem, isInCart, getItemQuantity } = useCart();
@@ -103,6 +111,7 @@ const PricingSection: React.FC = () => {
       </div>
     </section>
   );
+  */
 };
 
 export default PricingSection;

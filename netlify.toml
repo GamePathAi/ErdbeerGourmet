@@ -21,55 +21,73 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
+    Content-Type = "text/html; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+    Cache-Control = "no-cache, no-store, must-revalidate"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com https://*.supabase.co;"
 
 [[headers]]
   for = "*.js"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "*.mjs"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/*.js"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/*.mjs"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/**/*.js"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/**/*.mjs"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "application/javascript; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/**/*.tsx"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "text/x-typescript; charset=utf-8"
     X-Content-Type-Options = "nosniff"
 
 [[headers]]
   for = "/**/*.ts"
   [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+    Content-Type = "text/x-typescript; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Content-Type = "text/css; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Content-Type = "text/css; charset=utf-8"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/src/**/*"

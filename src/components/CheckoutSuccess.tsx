@@ -19,7 +19,7 @@ interface OrderDetails {
   }>
 }
 
-export const CheckoutSuccess: React.FC<CheckoutSuccessProps> = ({ sessionId }) => {
+const CheckoutSuccess: React.FC<CheckoutSuccessProps> = ({ sessionId }) => {
   const { clearCart } = useCart()
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
   const [loading, setLoading] = useState(true)
@@ -228,3 +228,5 @@ export const CheckoutSuccess: React.FC<CheckoutSuccessProps> = ({ sessionId }) =
     </div>
   )
 }
+
+export default CheckoutSuccess;

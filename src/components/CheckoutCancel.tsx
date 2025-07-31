@@ -1,7 +1,7 @@
 import React from 'react'
 import { XCircle, ArrowLeft, ShoppingCart, HelpCircle } from 'lucide-react'
 
-export const CheckoutCancel: React.FC = () => {
+const CheckoutCancel: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-red-50">
       <div className="container mx-auto px-4 py-16">
@@ -102,3 +102,5 @@ export const CheckoutCancel: React.FC = () => {
     </div>
   )
 }
+
+export default CheckoutCancel;
