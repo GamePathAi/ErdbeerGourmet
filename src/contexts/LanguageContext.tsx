@@ -49,17 +49,7 @@ const translations = {
     'pricing.save': 'Economize',
     'pricing.buy': 'Comprar Agora',
     
-    // Order Section
-    'order.title': 'Como Encomendar',
-    'order.whatsapp': 'WhatsApp',
-    'order.whatsapp.desc': 'Envie uma mensagem para +41 78 893 6517',
-    'order.pickup': 'Retirada',
-    'order.pickup.desc': 'Retire em nosso ponto de produção',
-    'order.delivery': 'Entrega',
-    'order.delivery.desc': 'Entregamos em toda região de Zurique',
-    'order.cta.title': 'Pronto para provar o doce mais desejado da Suíça?',
-    'order.cta.description': 'Clique abaixo e faça seu pedido direto conosco:',
-    'order.cta.button': 'FAZER PEDIDO AGORA – WhatsApp',
+
     
     // Care Section
     'care.title': 'Cuidados com seu ErdbeerGourmet',
@@ -130,17 +120,7 @@ const translations = {
     'pricing.save': 'Save',
     'pricing.buy': 'Buy Now',
     
-    // Order Section
-    'order.title': 'How to Order',
-    'order.whatsapp': 'WhatsApp',
-    'order.whatsapp.desc': 'Send a message to +41 78 893 6517',
-    'order.pickup': 'Pickup',
-    'order.pickup.desc': 'Pick up at our production point',
-    'order.delivery': 'Delivery',
-    'order.delivery.desc': 'We deliver throughout the Zurich region',
-    'order.cta.title': 'Ready to taste Switzerland\'s most desired sweet?',
-    'order.cta.description': 'Click below and place your order directly with us:',
-    'order.cta.button': 'ORDER NOW – WhatsApp',
+
     
     // Care Section
     'care.title': 'Caring for your ErdbeerGourmet',
@@ -211,17 +191,7 @@ const translations = {
     'pricing.save': 'Sparen Sie',
     'pricing.buy': 'Jetzt kaufen',
     
-    // Order Section
-    'order.title': 'Wie bestellen',
-    'order.whatsapp': 'WhatsApp',
-    'order.whatsapp.desc': 'Senden Sie eine Nachricht an +41 78 893 6517',
-    'order.pickup': 'Abholung',
-    'order.pickup.desc': 'Abholen an unserem Produktionsstandort',
-    'order.delivery': 'Lieferung',
-    'order.delivery.desc': 'Wir liefern in der ganzen Region Zürich',
-    'order.cta.title': 'Bereit, die begehrteste Süßigkeit der Schweiz zu probieren?',
-    'order.cta.description': 'Klicken Sie unten und bestellen Sie direkt bei uns:',
-    'order.cta.button': 'JETZT BESTELLEN – WhatsApp',
+
     
     // Care Section
     'care.title': 'Pflege Ihres ErdbeerGourmet',
