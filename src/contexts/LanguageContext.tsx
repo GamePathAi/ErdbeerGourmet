@@ -6,9 +6,29 @@ export interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  getCurrencySymbol: () => string;
 }
 
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+// Definição de preços e símbolos de moeda por idioma
+const currencyData = {
+  pt: {
+    symbol: 'R$',
+    fromPrice: 'R$ 197,00',
+    price: 'R$ 47,00'
+  },
+  en: {
+    symbol: '$',
+    fromPrice: '$197.00',
+    price: '$47.00'
+  },
+  de: {
+    symbol: '€',
+    fromPrice: '€180,00',
+    price: '€43,00'
+  }
+};
 
 const translations = {
   pt: {
@@ -94,8 +114,8 @@ const translations = {
     'ebook.students': '+2.847 Alunos',
     'ebook.guarantee': 'Garantia 7 dias',
     'ebook.reviews': '(328 avaliações)',
-    'ebook.from': 'De R$ 197,00',
-    'ebook.price': 'R$ 47,00',
+    'ebook.from': currencyData.pt.fromPrice,
+    'ebook.price': currencyData.pt.price,
     'ebook.discount': '🔥 76% DE DESCONTO - APENAS HOJE!',
     'ebook.name_placeholder': 'Seu nome completo',
     'ebook.email_placeholder': 'Seu melhor email',
@@ -227,8 +247,8 @@ const translations = {
     'ebook.students': '+2,847 Students',
     'ebook.guarantee': '7-day guarantee',
     'ebook.reviews': '(328 reviews)',
-    'ebook.from': 'From $197.00',
-    'ebook.price': '$47.00',
+    'ebook.from': currencyData.en.fromPrice,
+    'ebook.price': currencyData.en.price,
     'ebook.discount': '🔥 76% OFF - TODAY ONLY!',
     'ebook.name_placeholder': 'Your full name',
     'ebook.email_placeholder': 'Your best email',
@@ -360,8 +380,8 @@ const translations = {
     'ebook.students': '+2.847 Schüler',
     'ebook.guarantee': '7-Tage-Garantie',
     'ebook.reviews': '(328 Bewertungen)',
-    'ebook.from': 'Von CHF 197,00',
-    'ebook.price': 'CHF 47,00',
+    'ebook.from': currencyData.de.fromPrice,
+    'ebook.price': currencyData.de.price,
     'ebook.discount': '🔥 76% RABATT - NUR HEUTE!',
     'ebook.name_placeholder': 'Ihr vollständiger Name',
     'ebook.email_placeholder': 'Ihre beste E-Mail',
@@ -438,8 +458,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return translation;
   };
 
+  const getCurrencySymbol = (): string => {
+    return currencyData[language].symbol;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t, getCurrencySymbol }}>
       {children}
     </LanguageContext.Provider>
   );

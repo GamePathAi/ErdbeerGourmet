@@ -3,7 +3,7 @@ import { Check, Clock, Users, Star, ChefHat, Download, Shield, Gift } from 'luci
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function MorangoGourmetLanding() {
-  const { t } = useLanguage();
+  const { t, getCurrencySymbol } = useLanguage();
   
   const [timeLeft, setTimeLeft] = useState({
     hours: 23,
@@ -65,21 +65,57 @@ export default function MorangoGourmetLanding() {
     try {
       // Track purchase attempt
       if (typeof gtag !== 'undefined') {
+        // Define a moeda com base no idioma atual
+        const currencyMap = {
+          'R$': 'BRL',
+          '$': 'USD',
+          '€': 'EUR'
+        };
+        const currencySymbol = getCurrencySymbol();
+        const currency = currencyMap[currencySymbol] || 'BRL';
+        
+        // Define o valor com base no idioma atual
+        const valueMap = {
+          'R$': 47,
+          '$': 47,
+          '€': 43
+        };
+        const value = valueMap[currencySymbol] || 47;
+        
         gtag('event', 'begin_checkout', {
-          currency: 'BRL',
-          value: 47,
+          currency: currency,
+          value: value,
           event_category: 'ecommerce',
           event_label: 'morango_gourmet_ebook',
         });
       }
 
+      // Define a moeda e o valor com base no idioma atual
+      const currencyMap = {
+        'R$': 'BRL',
+        '$': 'USD',
+        '€': 'EUR'
+      };
+      const currencySymbol = getCurrencySymbol();
+      const currency = currencyMap[currencySymbol] || 'BRL';
+      
+      // Define o valor com base no idioma atual
+      const valueMap = {
+        'R$': 47,
+        '$': 47,
+        '€': 43
+      };
+      const value = valueMap[currencySymbol] || 47;
+      
       // Create Stripe checkout session
       const response = await fetch('/.netlify/functions/create-ebook-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           customerEmail: customerEmail.trim(),
-          customerName: customerName.trim()
+          customerName: customerName.trim(),
+          currency: currency,
+          value: value
         })
       });
 

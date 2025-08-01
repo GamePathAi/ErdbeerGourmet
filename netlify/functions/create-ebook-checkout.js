@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const { customerEmail, customerName } = JSON.parse(event.body);
+    const { customerEmail, customerName, currency = 'brl', value = 47 } = JSON.parse(event.body);
 
     if (!customerEmail) {
       return {
@@ -80,7 +80,7 @@ exports.handler = async (event, context) => {
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          currency: 'brl',
+          currency: currency.toLowerCase(),
           product_data: {
             name: 'Morango Gourmet Profissional - Ebook',
             description: 'Guia completo com técnicas secretas para fazer morangos gourmet perfeitos',
@@ -90,7 +90,7 @@ exports.handler = async (event, context) => {
               category: 'curso_digital'
             }
           },
-          unit_amount: 4700, // R$ 47,00 em centavos
+          unit_amount: value * 100, // Valor em centavos
         },
         quantity: 1,
       }],
@@ -107,15 +107,16 @@ exports.handler = async (event, context) => {
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60), // 30 minutes
     });
 
-    // Store the session in Supabase for tracking
-    await supabase
+    // Record the purchase attempt in Supabase
+    const { error: purchaseError } = await supabase
       .from('ebook_purchases')
       .insert({
         customer_id: customer.id,
         stripe_session_id: session.id,
         status: 'pending',
-        amount_cents: 4700,
-        currency: 'BRL'
+        purchase_date: new Date().toISOString(),
+        amount: parseFloat(value),
+        currency: currency.toUpperCase()
       });
 
     return {
