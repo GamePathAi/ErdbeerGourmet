@@ -64,7 +64,17 @@ export default function MorangoGourmetLanding() {
         })
       });
 
-      const data = await response.json();
+      let data;
+      const responseText = await response.text();
+      
+      try {
+        data = JSON.parse(responseText);
+      } catch (jsonError) {
+        console.error('Erro ao fazer parse do JSON:', jsonError);
+        console.error('Response status:', response.status);
+        console.error('Response text:', responseText);
+        throw new Error('Resposta inválida do servidor');
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Erro ao processar pagamento');
