@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const { customerEmail, customerName, currency = 'brl', value = 47 } = JSON.parse(event.body);
+    const { customerEmail, customerName } = JSON.parse(event.body);
 
     if (!customerEmail) {
       return {
@@ -75,12 +75,14 @@ exports.handler = async (event, context) => {
       customer = newCustomer;
     }
 
-    // Create Stripe checkout session for ebook
+    // Create Stripe checkout session for ebook with Adaptive Pricing
+    // Note: Adaptive Pricing must be enabled in the Stripe Dashboard
+    // Go to Dashboard > Settings > Payments > Checkout and enable "Adaptive Pricing"
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          currency: currency.toLowerCase(),
+          currency: 'brl', // Base currency - Stripe will convert automatically with Adaptive Pricing
           product_data: {
             name: 'Morango Gourmet Profissional - Ebook',
             description: 'Guia completo com técnicas secretas para fazer morangos gourmet perfeitos',
@@ -90,7 +92,7 @@ exports.handler = async (event, context) => {
               category: 'curso_digital'
             }
           },
-          unit_amount: value * 100, // Valor em centavos
+          unit_amount: 4700, // R$ 47,00 em centavos - base price
         },
         quantity: 1,
       }],
@@ -105,6 +107,8 @@ exports.handler = async (event, context) => {
         source: 'morango_gourmet_landing'
       },
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60), // 30 minutes
+      // Adaptive Pricing is enabled via Stripe Dashboard, not API parameter
+      // The customer's location will be detected automatically by Stripe
     });
 
     // Record the purchase attempt in Supabase
@@ -115,8 +119,8 @@ exports.handler = async (event, context) => {
         stripe_session_id: session.id,
         status: 'pending',
         purchase_date: new Date().toISOString(),
-        amount: parseFloat(value),
-        currency: currency.toUpperCase()
+        amount: 47.00, // Base price in BRL
+        currency: 'BRL' // Base currency - Stripe handles conversion
       });
 
     return {
