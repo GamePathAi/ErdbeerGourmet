@@ -79,7 +79,72 @@ const translations = {
     'gallery.card6': 'Pequeno no tamanho, gigante no sabor. O gourmet que conquista no primeiro toque.',
     
     // Footer
-    'footer.copyright': 'Erdbeergourmet. Todos os direitos reservados.'
+    'footer.copyright': 'Erdbeergourmet. Todos os direitos reservados.',
+    
+    // Ebook
+    'ebook.timer': 'OFERTA ESPECIAL EXPIRA EM:',
+    'ebook.professional': 'SEGREDOS DE CONFEITEIRO PROFISSIONAL',
+    'ebook.title': 'de Desperdiçar Morangos e Ingredientes!',
+    'ebook.subtitle': 'Você que tenta e não consegue fazer aquela camada de brigadeiro cremosa...',
+    'ebook.subtitle2': 'Vou ensinar TODAS as técnicas para o',
+    'ebook.subtitle3': 'Morango com Brigadeiro e Calda de Vidro PERFEITO',
+    'ebook.course': 'CURSO COMPLETO',
+    'ebook.course_name': 'Morango Gourmet Profissional',
+    'ebook.pdf': 'PDF Completo',
+    'ebook.students': '+2.847 Alunos',
+    'ebook.guarantee': 'Garantia 7 dias',
+    'ebook.reviews': '(328 avaliações)',
+    'ebook.from': 'De R$ 197,00',
+    'ebook.price': 'R$ 47,00',
+    'ebook.discount': '🔥 76% DE DESCONTO - APENAS HOJE!',
+    'ebook.name_placeholder': 'Seu nome completo',
+    'ebook.email_placeholder': 'Seu melhor email',
+    'ebook.processing': 'Processando...',
+    'ebook.buy_secure': '🍓 FINALIZAR COMPRA SEGURA',
+    'ebook.buy_now': '🍓 QUERO DOMINAR O MORANGO GOURMET AGORA!',
+    'ebook.secure_payment': 'Pagamento 100% seguro • Acesso imediato • Garantia de 7 dias',
+    'ebook.problem_title': '😤 Você Já Passou Por Isso?',
+    'ebook.problem1': 'Brigadeiro escorre do morango?',
+    'ebook.problem2': 'Calda de vidro talha na hora errada?',
+    'ebook.problem3': 'Camadas não grudam direito?',
+    'ebook.problem4': 'Textura nunca fica igual das confeitarias?',
+    'ebook.problem5': 'Desperdiça ingredientes caros tentando acertar?',
+    'ebook.problem6': 'Não sabe a ordem certa das camadas?',
+    'ebook.solution_title': '✨ A Solução Está Aqui!',
+    'ebook.solution_text': 'Depois de 15 anos trabalhando em confeitarias premium e ensinando centenas de pessoas, criei o método definitivo que NUNCA falha.',
+    'ebook.learn_title': '🎯 O que você vai aprender:',
+    'ebook.technique_title': '🍫 TÉCNICA EXCLUSIVA REVELADA:',
+    'ebook.technique_text': 'O segredo do "Brigadeiro de Cobertura" - a camada cremosa que vai entre o morango e a calda de vidro, criando aquela textura inesquecível que todos perguntam como fazer!',
+    'ebook.solution_title': '✨ A Solução Está Aqui!',
+    'ebook.solution_text': 'Depois de 15 anos trabalhando em confeitarias premium e ensinando centenas de pessoas, criei o método definitivo que NUNCA falha.',
+    'ebook.learn_title': '🎯 O que você vai aprender:',
+    'ebook.testimonials_title': '💬 Veja o que nossos alunos estão dizendo:',
+    'ebook.urgency_title': '⏰ ÚLTIMAS HORAS!',
+    'ebook.urgency_text': 'Esta oferta especial expira à meia-noite.',
+    'ebook.urgency_text2': 'Não perca a chance de finalmente dominar o morango gourmet!',
+    'ebook.time_remaining': 'restantes para garantir seu desconto',
+    'ebook.final_cta': '🍓 SIM! QUERO GARANTIR MINHA VAGA AGORA',
+    'ebook.guarantee_title': 'Garantia Incondicional de 7 Dias',
+    'ebook.guarantee_text': 'Se por qualquer motivo você não ficar 100% satisfeito com o curso, devolvemos todo seu dinheiro em até 7 dias. Sem perguntas, sem complicações.',
+    'ebook.alert_fill': 'Por favor, preencha seu nome e email para continuar.',
+    
+    // Benefits
+    'ebook.benefit1': 'Técnica secreta da calda de vidro perfeita que nunca talha',
+    'ebook.benefit2': 'Receita exclusiva do brigadeiro de cobertura cremoso',
+    'ebook.benefit3': 'Método para escolher o morango ideal (95% erram isso)',
+    'ebook.benefit4': '3 texturas diferentes: cremosa, crocante e aveludada',
+    'ebook.benefit5': 'Temperatura exata para cada camada (crucial!)',
+    'ebook.benefit6': 'Truques de apresentação que impressionam',
+    'ebook.benefit7': 'Técnica das 3 camadas: morango + brigadeiro + calda cristal',
+    'ebook.benefit8': 'Variações gourmet: chocolate branco, meio amargo e ruby',
+    
+    // Testimonials
+    'ebook.testimonial1.name': 'Maria Silva',
+    'ebook.testimonial1.text': 'Finalmente consegui fazer a calda perfeita! Meus convidados pensaram que comprei em uma confeitaria premium.',
+    'ebook.testimonial2.name': 'Carlos Mendes',
+    'ebook.testimonial2.text': 'Tentei por anos e sempre dava errado. Com essas técnicas, acertei na primeira tentativa!',
+    'ebook.testimonial3.name': 'Ana Costa',
+    'ebook.testimonial3.text': 'O segredo da temperatura mudou tudo. Agora faço para vender e está sendo um sucesso!'
   },
   
   en: {
@@ -150,7 +215,72 @@ const translations = {
     'gallery.card6': 'Small in size, giant in flavor. The gourmet that conquers at first touch.',
     
     // Footer
-    'footer.copyright': 'Erdbeergourmet. All rights reserved.'
+    'footer.copyright': 'Erdbeergourmet. All rights reserved.',
+    
+    // Ebook
+    'ebook.timer': 'SPECIAL OFFER EXPIRES IN:',
+    'ebook.professional': 'PROFESSIONAL PASTRY CHEF SECRETS',
+    'ebook.title': 'Wasting Strawberries and Ingredients!',
+    'ebook.subtitle': 'You who try and can\'t make that creamy brigadeiro layer...',
+    'ebook.subtitle2': 'I will teach you ALL the techniques for the',
+    'ebook.subtitle3': 'PERFECT Strawberry with Brigadeiro and Glass Syrup',
+    'ebook.course': 'COMPLETE COURSE',
+    'ebook.course_name': 'Professional Gourmet Strawberry',
+    'ebook.pdf': 'Complete PDF',
+    'ebook.students': '+2,847 Students',
+    'ebook.guarantee': '7-day guarantee',
+    'ebook.reviews': '(328 reviews)',
+    'ebook.from': 'From $197.00',
+    'ebook.price': '$47.00',
+    'ebook.discount': '🔥 76% OFF - TODAY ONLY!',
+    'ebook.name_placeholder': 'Your full name',
+    'ebook.email_placeholder': 'Your best email',
+    'ebook.processing': 'Processing...',
+    'ebook.buy_secure': '🍓 COMPLETE SECURE PURCHASE',
+    'ebook.buy_now': '🍓 I WANT TO MASTER GOURMET STRAWBERRY NOW!',
+    'ebook.secure_payment': '100% secure payment • Immediate access • 7-day guarantee',
+    'ebook.problem_title': '😤 Have You Been Through This?',
+    'ebook.problem1': 'Brigadeiro drips off the strawberry?',
+    'ebook.problem2': 'Glass syrup crystallizes at the wrong time?',
+    'ebook.problem3': 'Layers don\'t stick properly?',
+    'ebook.problem4': 'Texture never matches pastry shops?',
+    'ebook.problem5': 'Waste expensive ingredients trying to get it right?',
+    'ebook.problem6': 'Don\'t know the right order of layers?',
+    'ebook.solution_title': '✨ The Solution Is Here!',
+    'ebook.solution_text': 'After 15 years working in premium pastry shops and teaching hundreds of people, I created the definitive method that NEVER fails.',
+    'ebook.learn_title': '🎯 What you will learn:',
+    'ebook.technique_title': '🍫 EXCLUSIVE TECHNIQUE REVEALED:',
+    'ebook.technique_text': 'The secret of "Coating Brigadeiro" - the creamy layer that goes between the strawberry and glass syrup, creating that unforgettable texture that everyone asks how to make!',
+    'ebook.solution_title': '✨ The Solution Is Here!',
+    'ebook.solution_text': 'After 15 years working in premium pastry shops and teaching hundreds of people, I created the definitive method that NEVER fails.',
+    'ebook.learn_title': '🎯 What you will learn:',
+    'ebook.testimonials_title': '💬 See what our students are saying:',
+    'ebook.urgency_title': '⏰ LAST HOURS!',
+    'ebook.urgency_text': 'This special offer expires at midnight.',
+    'ebook.urgency_text2': 'Don\'t miss the chance to finally master gourmet strawberry!',
+    'ebook.time_remaining': 'remaining to secure your discount',
+    'ebook.final_cta': '🍓 YES! I WANT TO SECURE MY SPOT NOW',
+    'ebook.guarantee_title': 'Unconditional 7-Day Guarantee',
+    'ebook.guarantee_text': 'If for any reason you are not 100% satisfied with the course, we will refund all your money within 7 days. No questions, no complications.',
+    'ebook.alert_fill': 'Please fill in your name and email to continue.',
+    
+    // Benefits
+    'ebook.benefit1': 'Secret technique for perfect glass syrup that never crystallizes',
+    'ebook.benefit2': 'Exclusive recipe for creamy coating brigadeiro',
+    'ebook.benefit3': 'Method to choose the ideal strawberry (95% get this wrong)',
+    'ebook.benefit4': '3 different textures: creamy, crunchy and velvety',
+    'ebook.benefit5': 'Exact temperature for each layer (crucial!)',
+    'ebook.benefit6': 'Presentation tricks that impress',
+    'ebook.benefit7': '3-layer technique: strawberry + brigadeiro + crystal syrup',
+    'ebook.benefit8': 'Gourmet variations: white chocolate, semi-sweet and ruby',
+    
+    // Testimonials
+    'ebook.testimonial1.name': 'Maria Silva',
+    'ebook.testimonial1.text': 'I finally managed to make the perfect syrup! My guests thought I bought it from a premium pastry shop.',
+    'ebook.testimonial2.name': 'Carlos Mendes',
+    'ebook.testimonial2.text': 'I tried for years and it always went wrong. With these techniques, I got it right on the first try!',
+    'ebook.testimonial3.name': 'Ana Costa',
+    'ebook.testimonial3.text': 'The temperature secret changed everything. Now I make them to sell and it\'s being a success!'
   },
   
   de: {
@@ -221,7 +351,72 @@ const translations = {
     'gallery.card6': 'Klein in der Größe, riesig im Geschmack. Das Gourmet, das bei der ersten Berührung erobert.',
     
     // Footer
-    'footer.copyright': 'Erdbeergourmet. Alle Rechte vorbehalten.'
+    'footer.copyright': 'Erdbeergourmet. Alle Rechte vorbehalten.',
+    
+    // Ebook
+    'ebook.timer': 'SONDERANGEBOT LÄUFT AB IN:',
+    'ebook.professional': 'PROFESSIONELLE KONDITOR-GEHEIMNISSE',
+    'ebook.title': 'Erdbeeren und Zutaten zu verschwenden!',
+    'ebook.subtitle': 'Sie, die es versuchen und diese cremige Brigadeiro-Schicht nicht hinbekommen...',
+    'ebook.subtitle2': 'Ich werde Ihnen ALLE Techniken für die',
+    'ebook.subtitle3': 'PERFEKTE Erdbeere mit Brigadeiro und Glassirup beibringen',
+    'ebook.course': 'VOLLSTÄNDIGER KURS',
+    'ebook.course_name': 'Professionelle Gourmet-Erdbeere',
+    'ebook.pdf': 'Vollständiges PDF',
+    'ebook.students': '+2.847 Schüler',
+    'ebook.guarantee': '7-Tage-Garantie',
+    'ebook.reviews': '(328 Bewertungen)',
+    'ebook.from': 'Von CHF 197,00',
+    'ebook.price': 'CHF 47,00',
+    'ebook.discount': '🔥 76% RABATT - NUR HEUTE!',
+    'ebook.name_placeholder': 'Ihr vollständiger Name',
+    'ebook.email_placeholder': 'Ihre beste E-Mail',
+    'ebook.processing': 'Verarbeitung...',
+    'ebook.buy_secure': '🍓 SICHEREN KAUF ABSCHLIESSEN',
+    'ebook.buy_now': '🍓 ICH MÖCHTE GOURMET-ERDBEEREN JETZT MEISTERN!',
+    'ebook.secure_payment': '100% sichere Zahlung • Sofortiger Zugang • 7-Tage-Garantie',
+    'ebook.problem_title': '😤 Haben Sie das schon erlebt?',
+    'ebook.problem1': 'Brigadeiro tropft von der Erdbeere ab?',
+    'ebook.problem2': 'Glassirup kristallisiert zur falschen Zeit?',
+    'ebook.problem3': 'Schichten kleben nicht richtig?',
+    'ebook.problem4': 'Textur entspricht nie der von Konditoreien?',
+    'ebook.problem5': 'Verschwenden teure Zutaten beim Versuch, es richtig zu machen?',
+    'ebook.problem6': 'Kennen die richtige Reihenfolge der Schichten nicht?',
+    'ebook.solution_title': '✨ Die Lösung ist hier!',
+    'ebook.solution_text': 'Nach 15 Jahren Arbeit in Premium-Konditoreien und dem Unterrichten von Hunderten von Menschen habe ich die definitive Methode entwickelt, die NIEMALS versagt.',
+    'ebook.learn_title': '🎯 Was Sie lernen werden:',
+    'ebook.technique_title': '🍫 EXKLUSIVE TECHNIK ENTHÜLLT:',
+    'ebook.technique_text': 'Das Geheimnis des "Überzugs-Brigadeiro" - die cremige Schicht zwischen Erdbeere und Glassirup, die diese unvergessliche Textur schafft, nach der alle fragen!',
+    'ebook.solution_title': '✨ Die Lösung ist hier!',
+    'ebook.solution_text': 'Nach 15 Jahren Arbeit in Premium-Konditoreien und dem Unterrichten von Hunderten von Menschen habe ich die definitive Methode entwickelt, die NIEMALS versagt.',
+    'ebook.learn_title': '🎯 Was Sie lernen werden:',
+    'ebook.testimonials_title': '💬 Sehen Sie, was unsere Schüler sagen:',
+    'ebook.urgency_title': '⏰ LETZTE STUNDEN!',
+    'ebook.urgency_text': 'Dieses Sonderangebot läuft um Mitternacht ab.',
+    'ebook.urgency_text2': 'Verpassen Sie nicht die Chance, endlich Gourmet-Erdbeeren zu meistern!',
+    'ebook.time_remaining': 'verbleibend, um Ihren Rabatt zu sichern',
+    'ebook.final_cta': '🍓 JA! ICH MÖCHTE MEINEN PLATZ JETZT SICHERN',
+    'ebook.guarantee_title': 'Bedingungslose 7-Tage-Garantie',
+    'ebook.guarantee_text': 'Wenn Sie aus irgendeinem Grund nicht 100% zufrieden mit dem Kurs sind, erstatten wir Ihr gesamtes Geld innerhalb von 7 Tagen zurück. Keine Fragen, keine Komplikationen.',
+    'ebook.alert_fill': 'Bitte füllen Sie Ihren Namen und Ihre E-Mail aus, um fortzufahren.',
+    
+    // Benefits
+    'ebook.benefit1': 'Geheime Technik für perfekten Glassirup, der nie kristallisiert',
+    'ebook.benefit2': 'Exklusives Rezept für cremigen Überzugs-Brigadeiro',
+    'ebook.benefit3': 'Methode zur Auswahl der idealen Erdbeere (95% machen das falsch)',
+    'ebook.benefit4': '3 verschiedene Texturen: cremig, knusprig und samtig',
+    'ebook.benefit5': 'Exakte Temperatur für jede Schicht (entscheidend!)',
+    'ebook.benefit6': 'Präsentationstricks, die beeindrucken',
+    'ebook.benefit7': '3-Schichten-Technik: Erdbeere + Brigadeiro + Kristallsirup',
+    'ebook.benefit8': 'Gourmet-Variationen: weiße Schokolade, halbbitter und ruby',
+    
+    // Testimonials
+    'ebook.testimonial1.name': 'Maria Silva',
+    'ebook.testimonial1.text': 'Endlich habe ich es geschafft, den perfekten Sirup zu machen! Meine Gäste dachten, ich hätte ihn in einer Premium-Konditorei gekauft.',
+    'ebook.testimonial2.name': 'Carlos Mendes',
+    'ebook.testimonial2.text': 'Ich habe es jahrelang versucht und es ging immer schief. Mit diesen Techniken habe ich es beim ersten Versuch geschafft!',
+    'ebook.testimonial3.name': 'Ana Costa',
+    'ebook.testimonial3.text': 'Das Temperatur-Geheimnis hat alles verändert. Jetzt mache ich sie zum Verkauf und es ist ein Erfolg!'
   },
 };
 
@@ -230,14 +425,30 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('pt');
+  const [language, setLanguage] = useState<Language>(() => {
+    // Recuperar idioma do localStorage ou usar 'pt' como padrão
+    const savedLanguage = localStorage.getItem('erdbeergourmet-language');
+    return (savedLanguage as Language) || 'pt';
+  });
+  
+  // Salvar idioma no localStorage quando mudar
+  const handleSetLanguage = (lang: Language) => {
+    console.log('🌍 Setting language to:', lang);
+    localStorage.setItem('erdbeergourmet-language', lang);
+    setLanguage(lang);
+  };
 
   const t = (key: string): string => {
-    return (translations[language] as Record<string, string>)[key] || key;
+    const translation = (translations[language] as Record<string, string>)[key];
+    if (!translation) {
+      console.warn('🌍 Missing translation for key:', key, 'in language:', language);
+      return key;
+    }
+    return translation;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
