@@ -60,8 +60,8 @@ exports.handler = async (event, context) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
-      success_url: `${process.env.URL || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.URL || 'http://localhost:3000'}/cancel`,
+      success_url: `${(process.env.URL || 'http://localhost:3000').replace(/\/$/, '')}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${(process.env.URL || 'http://localhost:3000').replace(/\/$/, '')}/cancel`,
       customer_email: customerEmail,
       shipping_address_collection: {
         allowed_countries: ['CH', 'DE', 'AT', 'FR', 'IT'], // Mesmos países da versão TypeScript
