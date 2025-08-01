@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Page</title>
+</head>
+<body>
+    <h1>Debug Test Page</h1>
+    <div id="debug-info"></div>
+    
+    <script>
+        console.log('Debug script loaded');
+        
+        // Test basic functionality
+        document.getElementById('debug-info').innerHTML = `
+            <p>✅ HTML carregado</p>
+            <p>✅ JavaScript funcionando</p>
+            <p>URL atual: ${window.location.href}</p>
+            <p>User Agent: ${navigator.userAgent}</p>
+        `;
+        
+        // Test fetch to React app
+        fetch('/ebook')
+            .then(response => {
+                console.log('Fetch response:', response.status);
+                return response.text();
+            })
+            .then(html => {
+                console.log('HTML length:', html.length);
+                if (html.includes('root')) {
+                    console.log('✅ React app HTML found');
+                } else {
+                    console.log('❌ React app HTML not found');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+const ebookAcessoHTML = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso ao Ebook - Morango Gourmet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-2xl mx-auto p-8">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">
+                🍓 Acesso ao Ebook
+            </h1>
+            
+            <div id="loading" class="mb-6">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto mb-4"></div>
+                <p class="text-gray-600">Verificando seu acesso...</p>
+            </div>
+            
+            <div id="access-granted" style="display: none;" class="text-center">
+                <div class="text-green-600 text-4xl mb-4">✅</div>
+                <h2 class="text-xl font-bold text-green-800 mb-4">Acesso Autorizado!</h2>
+                <p id="customer-info" class="text-gray-600 mb-4">Seu ebook está pronto para acesso.</p>
+                <iframe 
+                    src="/ebook/morango-gourmet-profissional.html"
+                    class="w-full h-96 border-2 border-gray-300 rounded-lg mb-4"
+                ></iframe>
+                <a 
+                    href="/ebook/morango-gourmet-profissional.html" 
+                    target="_blank"
+                    class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+                >
+                    📱 Abrir em Nova Aba
+                </a>
+            </div>
+            
+            <div id="access-denied" style="display: none;" class="text-center">
+                <div class="text-red-600 text-4xl mb-4">❌</div>
+                <h2 class="text-xl font-bold text-red-800 mb-4">Acesso Negado</h2>
+                <p id="error-message" class="text-gray-600 mb-4">Token inválido ou expirado.</p>
+                <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    🏠 Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      async function verifyAccess() {
+         const urlParams = new URLSearchParams(window.location.search);
+         const token = urlParams.get('token');
+         const sessionId = urlParams.get('session_id');
+         
+         try {
+           // Verificar se é um token de demonstração
+           if (token && token.startsWith('demo_')) {
+             document.getElementById('loading').style.display = 'none';
+             document.getElementById('access-granted').style.display = 'block';
+             
+             const customerInfo = document.getElementById('customer-info');
+             if (customerInfo) {
+               customerInfo.textContent = 'Bem-vindo(a)! Esta é uma demonstração do sistema.';
+             }
+             return;
+           }
+           
+           let response;
+           
+           if (sessionId) {
+             // Get access token from session ID
+             response = await fetch(`/.netlify/functions/get-ebook-access?session_id=${sessionId}`);
+             const data = await response.json();
+             
+             if (response.ok && data.accessToken) {
+               // Redirect with access token
+               window.location.href = `/ebook-acesso?token=${data.accessToken}`;
+               return;
+             } else {
+               throw new Error(data.error || 'Acesso não encontrado');
+             }
+           } else if (token) {
+             // Verify access token
+             response = await fetch(`/.netlify/functions/verify-ebook-access?token=${token}`);
+             const data = await response.json();
+             
+             if (response.ok && data.hasAccess) {
+               document.getElementById('loading').style.display = 'none';
+               document.getElementById('access-granted').style.display = 'block';
+               
+               // Update customer info if available
+               if (data.customer) {
+                 const customerInfo = document.getElementById('customer-info');
+                 if (customerInfo) {
+                   customerInfo.textContent = `Bem-vindo(a), ${data.customer.name}!`;
+                 }
+               }
+               return;
+             }
+           }
+           
+           throw new Error('Token inválido ou expirado');
+         } catch (error) {
+           console.error('Erro ao verificar acesso:', error);
+           document.getElementById('loading').style.display = 'none';
+           document.getElementById('access-denied').style.display = 'block';
+           
+           const errorMsg = document.getElementById('error-message');
+           if (errorMsg) {
+             errorMsg.textContent = error.message;
+           }
+         }
+       }
+      
+      // Start verification when page loads
+      verifyAccess();
+    </script>
+</body>
+</html>
+`;

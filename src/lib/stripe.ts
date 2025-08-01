@@ -1,12 +1,23 @@
 import { loadStripe } from '@stripe/stripe-js'
+import { config } from '../config/environment'
 
-const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY
-
-if (!stripePublicKey) {
-  throw new Error('Missing Stripe public key')
+// Validate Stripe configuration
+if (!config.stripe.publicKey) {
+  console.error('❌ Missing Stripe public key in environment variables');
+  console.error('🔧 Please check your .env file and ensure VITE_STRIPE_PUBLIC_KEY is set');
+  console.error('📝 Current environment:', import.meta.env.MODE);
+  throw new Error('Missing Stripe public key');
 }
 
-export const stripePromise = loadStripe(stripePublicKey)
+if (config.enableDebug) {
+  console.log('✅ Stripe configuration loaded:', {
+    hasPublicKey: !!config.stripe.publicKey,
+    keyPrefix: config.stripe.publicKey?.substring(0, 7) + '...',
+    environment: import.meta.env.MODE
+  });
+}
+
+export const stripePromise = loadStripe(config.stripe.publicKey)
 
 // Stripe product configuration
 export const STRIPE_PRODUCTS = {

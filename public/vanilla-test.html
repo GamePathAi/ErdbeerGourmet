@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanilla Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Teste Vanilla JavaScript</h1>
+        <p>Esta página testa funcionalidades básicas sem React.</p>
+        
+        <div class="status" id="status">
+            ✅ HTML carregado<br>
+            ✅ CSS aplicado<br>
+            ✅ JavaScript funcionando
+        </div>
+        
+        <button onclick="testFetch()">Testar Fetch</button>
+        <button onclick="testLocalStorage()">Testar LocalStorage</button>
+        <button onclick="testConsole()">Testar Console</button>
+        
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        console.log('🚀 Vanilla test script loaded');
+        
+        function updateResults(message) {
+            const results = document.getElementById('results');
+            results.innerHTML += '<div class="status">' + message + '</div>';
+        }
+        
+        function testFetch() {
+            updateResults('🔄 Testando fetch...');
+            fetch('/debug.html')
+                .then(response => {
+                    updateResults('✅ Fetch funcionando - Status: ' + response.status);
+                })
+                .catch(error => {
+                    updateResults('❌ Fetch erro: ' + error.message);
+                });
+        }
+        
+        function testLocalStorage() {
+            try {
+                localStorage.setItem('test', 'funcionando');
+                const value = localStorage.getItem('test');
+                updateResults('✅ LocalStorage funcionando: ' + value);
+                localStorage.removeItem('test');
+            } catch (error) {
+                updateResults('❌ LocalStorage erro: ' + error.message);
+            }
+        }
+        
+        function testConsole() {
+            console.log('Teste do console');
+            console.warn('Teste de warning');
+            console.error('Teste de error (proposital)');
+            updateResults('✅ Console testado - verifique o DevTools');
+        }
+        
+        // Auto-test on load
+        window.addEventListener('load', function() {
+            updateResults('🎯 Página carregada em: ' + new Date().toLocaleTimeString());
+            updateResults('📍 URL: ' + window.location.href);
+            updateResults('🌐 User Agent: ' + navigator.userAgent.substring(0, 50) + '...');
+        });
+    </script>
+</body>
+</html>

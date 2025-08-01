@@ -1,0 +1,103 @@
+const sucessoHTML = `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compra Realizada - Morango Gourmet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-orange-50 min-h-screen flex items-center justify-center">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 text-center">
+        <div class="text-green-600 text-6xl mb-4">✅</div>
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Pagamento Confirmado!</h1>
+        
+        <div id="loading" class="mb-6">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Processando seu acesso ao ebook. Aguarde alguns segundos...</p>
+        </div>
+        
+        <div id="success" class="hidden">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                <strong>🎉 Parabéns!</strong>
+                <p id="customer-welcome">Seu ebook está pronto para acesso.</p>
+            </div>
+            
+            <button 
+                id="access-ebook-btn"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg inline-block mb-4 w-full"
+            >
+                🍓 Acessar Ebook Agora
+            </button>
+            
+            <p class="text-sm text-gray-500">
+                Salve este link nos seus favoritos para acessar sempre que quiser!
+            </p>
+        </div>
+        
+        <div id="error" class="hidden">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <strong>❌ Erro</strong>
+                <p id="error-message">Não foi possível processar seu acesso. Entre em contato conosco.</p>
+            </div>
+            
+            <a 
+                href="/"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg inline-block"
+            >
+                🏠 Voltar ao Início
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        async function processAccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+            
+            if (!sessionId) {
+                showError('ID da sessão não encontrado.');
+                return;
+            }
+            
+            try {
+                // Get access token from session
+                const response = await fetch(`/.netlify/functions/get-ebook-access?session_id=${sessionId}`);
+                const data = await response.json();
+                
+                if (response.ok && data.accessToken) {
+                    // Show success
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('success').style.display = 'block';
+                    
+                    // Update welcome message
+                    if (data.customer && data.customer.name) {
+                        document.getElementById('customer-welcome').textContent = 
+                            `Bem-vindo(a), ${data.customer.name}! Seu ebook está pronto.`;
+                    }
+                    
+                    // Set up access button
+                    document.getElementById('access-ebook-btn').onclick = function() {
+                        window.location.href = `/ebook-acesso?token=${data.accessToken}`;
+                    };
+                } else {
+                    throw new Error(data.error || 'Acesso não encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao processar acesso:', error);
+                showError(error.message);
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error-message').textContent = message;
+        }
+        
+        // Start processing when page loads
+        setTimeout(processAccess, 2000);
+    </script>
+</body>
+</html>
+`;
