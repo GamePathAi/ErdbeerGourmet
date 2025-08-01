@@ -28,7 +28,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Aplicação
 ```
-URL=https://seu-site.netlify.app
+URL=https://erdbeergourmet.ch
 NODE_ENV=production
 ```
 
@@ -47,7 +47,7 @@ As funções estão localizadas em `netlify/functions/` e incluem:
 ## Configuração do Webhook do Stripe
 
 1. No painel do Stripe, vá para **Developers > Webhooks**
-2. Adicione um novo endpoint: `https://seu-site.netlify.app/.netlify/functions/stripe-webhook`
+2. Adicione um novo endpoint: `https://erdbeergourmet.ch/.netlify/functions/stripe-webhook`
 3. Selecione os eventos:
    - `checkout.session.completed`
    - `payment_intent.succeeded`
