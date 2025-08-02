@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 TESTE CRÍTICO - Validação Stripe CSP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .critical { background: #dc3545; }
+        .critical:hover { background: #c82333; }
+        #console-output {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚨 TESTE CRÍTICO DE PRODUÇÃO - Stripe CSP</h1>
+        <div class="info">
+            <strong>OBJETIVO:</strong> Validar se o Content Security Policy permite funcionamento completo do Stripe
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>📋 Checklist de Validação</h2>
+        <div id="test-results">
+            <div class="warning">⏳ Aguardando execução dos testes...</div>
+        </div>
+        <button onclick="runAllTests()">🔄 Executar Todos os Testes</button>
+        <button onclick="testStripeCheckout()" class="critical">💳 Teste Crítico - Stripe Checkout</button>
+    </div>
+
+    <div class="test-container">
+        <h2>🖥️ Console de Monitoramento</h2>
+        <div id="console-output">Iniciando monitoramento...
+</div>
+        <button onclick="clearConsole()">🗑️ Limpar Console</button>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        let testResults = [];
+        const consoleOutput = document.getElementById('console-output');
+        const resultsDiv = document.getElementById('test-results');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logMessage = `[${timestamp}] ${message}`;
+            consoleOutput.textContent += logMessage + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            console.log(logMessage);
+        }
+
+        function updateResults() {
+            let html = '';
+            testResults.forEach(result => {
+                const statusClass = result.success ? 'success' : 'error';
+                const icon = result.success ? '✅' : '❌';
+                html += `<div class="${statusClass}">${icon} ${result.name}: ${result.message}</div>`;
+            });
+            resultsDiv.innerHTML = html;
+        }
+
+        function addTestResult(name, success, message) {
+            testResults.push({ name, success, message });
+            updateResults();
+            log(`${name}: ${success ? 'SUCESSO' : 'FALHA'} - ${message}`);
+        }
+
+        // Teste 1: Verificar se Stripe SDK carregou
+        function testStripeSDK() {
+            log('🔍 Testando carregamento do Stripe SDK...');
+            if (typeof Stripe !== 'undefined') {
+                addTestResult('Stripe SDK', true, 'SDK carregado com sucesso');
+                return true;
+            } else {
+                addTestResult('Stripe SDK', false, 'SDK não carregou - possível bloqueio de CSP');
+                return false;
+            }
+        }
+
+        // Teste 2: Inicializar Stripe
+        function testStripeInit() {
+            log('🔍 Testando inicialização do Stripe...');
+            try {
+                // Usando chave pública de teste
+                const stripe = Stripe('pk_test_51234567890abcdef');
+                addTestResult('Stripe Init', true, 'Stripe inicializado com sucesso');
+                return stripe;
+            } catch (error) {
+                addTestResult('Stripe Init', false, `Erro na inicialização: ${error.message}`);
+                return null;
+            }
+        }
+
+        // Teste 3: Verificar CSP Violations
+        function testCSPViolations() {
+            log('🔍 Monitorando violações de CSP...');
+            let violations = 0;
+            
+            document.addEventListener('securitypolicyviolation', (e) => {
+                violations++;
+                log(`❌ CSP VIOLATION: ${e.violatedDirective} - ${e.blockedURI}`, 'error');
+                addTestResult('CSP Violations', false, `${violations} violação(ões) detectada(s)`);
+            });
+
+            // Aguardar 3 segundos para capturar violações
+            setTimeout(() => {
+                if (violations === 0) {
+                    addTestResult('CSP Violations', true, 'Nenhuma violação de CSP detectada');
+                }
+            }, 3000);
+        }
+
+        // Teste 4: Teste de Checkout (simulado)
+        function testStripeCheckout() {
+            log('🔍 Testando funcionalidade de checkout...');
+            
+            if (!testStripeSDK()) {
+                return;
+            }
+
+            try {
+                // Simular criação de checkout session
+                const stripe = Stripe('pk_test_51234567890abcdef');
+                
+                // Teste se consegue acessar métodos do Stripe
+                if (stripe && typeof stripe.redirectToCheckout === 'function') {
+                    addTestResult('Stripe Checkout', true, 'Métodos de checkout disponíveis');
+                    log('✅ Stripe Checkout está funcional!');
+                } else {
+                    addTestResult('Stripe Checkout', false, 'Métodos de checkout não disponíveis');
+                }
+            } catch (error) {
+                addTestResult('Stripe Checkout', false, `Erro no checkout: ${error.message}`);
+            }
+        }
+
+        // Teste 5: Verificar recursos carregados
+        function testResourceLoading() {
+            log('🔍 Verificando carregamento de recursos...');
+            
+            const scripts = document.querySelectorAll('script[src*="stripe"]');
+            if (scripts.length > 0) {
+                addTestResult('Stripe Resources', true, `${scripts.length} script(s) do Stripe carregado(s)`);
+            } else {
+                addTestResult('Stripe Resources', false, 'Nenhum script do Stripe encontrado');
+            }
+        }
+
+        // Executar todos os testes
+        function runAllTests() {
+            log('🚀 Iniciando bateria completa de testes...');
+            testResults = [];
+            
+            testCSPViolations();
+            testStripeSDK();
+            testStripeInit();
+            testResourceLoading();
+            
+            setTimeout(() => {
+                testStripeCheckout();
+                log('✅ Todos os testes concluídos!');
+            }, 1000);
+        }
+
+        function clearConsole() {
+            consoleOutput.textContent = 'Console limpo...\n';
+        }
+
+        // Executar testes automaticamente ao carregar
+        window.addEventListener('load', () => {
+            log('🌐 Página carregada - iniciando testes automáticos...');
+            setTimeout(runAllTests, 1000);
+        });
+
+        // Capturar erros JavaScript
+        window.addEventListener('error', (e) => {
+            log(`❌ ERRO JS: ${e.message} em ${e.filename}:${e.lineno}`, 'error');
+        });
+
+        log('🔧 Sistema de testes inicializado');
+    </script>
+</body>
+</html>
