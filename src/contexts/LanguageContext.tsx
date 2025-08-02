@@ -58,6 +58,7 @@ const translations = {
     
     // Pricing Section
     'pricing.title': 'Preços',
+    'pricing.subtitle': 'Doce artesanal premium que conquistou a Suíça',
     'pricing.individual': 'Individual',
     'pricing.pack2': 'Pacote 2 unidades',
     'pricing.pack5': 'Pacote 5 unidades',
@@ -68,6 +69,7 @@ const translations = {
     'pricing.best': 'Melhor Valor',
     'pricing.save': 'Economize',
     'pricing.buy': 'Comprar Agora',
+    'pricing.contact': 'Entre em Contato',
     
 
     
@@ -202,6 +204,7 @@ const translations = {
     
     // Pricing Section
     'pricing.title': 'Pricing',
+    'pricing.subtitle': 'Premium artisanal sweet that conquered Switzerland',
     'pricing.individual': 'Individual',
     'pricing.pack2': '2-piece pack',
     'pricing.pack5': '5-piece pack',
@@ -212,6 +215,7 @@ const translations = {
     'pricing.best': 'Best Value',
     'pricing.save': 'Save',
     'pricing.buy': 'Buy Now',
+    'pricing.contact': 'Contact Us',
     
 
     
@@ -351,11 +355,13 @@ const translations = {
     'pricing.pack5': '5er-Pack',
     'pricing.pack10': '10er-Pack',
     'pricing.currency': 'CHF',
+    'pricing.subtitle': 'Premium handwerkliche Süßigkeit, die die Schweiz erobert hat',
     'pricing.piece': 'pro Stück',
     'pricing.popular': 'Am beliebtesten',
     'pricing.best': 'Bester Wert',
     'pricing.save': 'Sparen Sie',
     'pricing.buy': 'Jetzt kaufen',
+    'pricing.contact': 'Kontakt aufnehmen',
     
 
     
