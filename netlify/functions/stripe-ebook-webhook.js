@@ -1,6 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
@@ -9,6 +10,57 @@ const supabase = createClient(
 
 function generateAccessToken() {
   return crypto.randomBytes(32).toString('hex');
+}
+
+// Configure email transporter
+const transporter = nodemailer.createTransporter({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: process.env.SMTP_PORT || 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
+
+async function sendThankYouEmail(customerEmail, accessToken) {
+  const accessLink = `https://erdbeergourmet.ch/ebook-acesso.html?token=${accessToken}`;
+  
+  const mailOptions = {
+    from: 'ErdbeerGourmet <contato@erdbeergourmet.com>',
+    to: customerEmail,
+    subject: '🍓 ErdbeerGourmet agradece a sua compra!',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color: #e53e3e; text-align: center;">🍓 ErdbeerGourmet</h2>
+        
+        <p>Hello,</p>
+        
+        <p>Thank you for reaching out to us!</p>
+        
+        <p>We've received your message and our team will get back to you as soon as possible.</p>
+        
+        <p>
+          In the meantime, feel free to access your content right away by clicking the link below:<br>
+          👉 <a href="${accessLink}" style="color: #e53e3e; text-decoration: none; font-weight: bold;" target="_blank">Access your exclusive page</a>
+        </p>
+        
+        <p>If you have any additional questions or need further assistance, feel free to reply to this email.</p>
+        
+        <p>Best regards,<br>
+        The Erdbeer Gourmet Team 🍓</p>
+      </div>
+    `
+  };
+  
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Thank you email sent successfully to ${customerEmail}`);
+    return true;
+  } catch (error) {
+    console.error('Error sending thank you email:', error);
+    return false;
+  }
 }
 
 exports.handler = async (event, context) => {
@@ -53,8 +105,14 @@ exports.handler = async (event, context) => {
             throw updateError;
           }
 
-          // Send confirmation email (you can implement this later)
-          console.log(`Ebook access granted for session ${session.id} with token ${accessToken}`);
+          // Send thank you email with access link
+          const customerEmail = session.customer_details?.email;
+          if (customerEmail) {
+            await sendThankYouEmail(customerEmail, accessToken);
+            console.log(`Ebook access granted and email sent for session ${session.id}`);
+          } else {
+            console.log(`Ebook access granted for session ${session.id} but no email found`);
+          }
         }
         break;
 

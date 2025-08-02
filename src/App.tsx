@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
 import SimplePricingSection from './components/SimplePricingSection';
 import ProductGallery from './components/ProductGallery';
+import EbookSection from './components/EbookSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import CartPage from './components/CartPage';
@@ -22,6 +23,7 @@ function HomePage() {
       <AboutSection />
       <SimplePricingSection />
       <ProductGallery />
+      <EbookSection />
       <ContactSection />
     </>
   );

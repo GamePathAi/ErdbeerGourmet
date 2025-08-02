@@ -101,6 +101,17 @@ const translations = {
     // Footer
     'footer.copyright': 'Erdbeergourmet. Todos os direitos reservados.',
     
+    // Ebook Section
+    'ebook_section.title': 'Aprenda os Segredos do Morango Gourmet',
+    'ebook_section.subtitle': 'Domine as técnicas profissionais que transformaram nosso produto em sucesso',
+    'ebook_section.description': 'Descubra como criar morangos gourmet perfeitos com nosso curso completo. Técnicas exclusivas, receitas secretas e métodos profissionais que garantem resultados incríveis.',
+    'ebook_section.features.technique': 'Técnica da calda de vidro perfeita',
+    'ebook_section.features.recipe': 'Receita exclusiva do brigadeiro cremoso',
+    'ebook_section.features.temperature': 'Controle de temperatura profissional',
+    'ebook_section.features.presentation': 'Truques de apresentação gourmet',
+    'ebook_section.cta': 'Quero Aprender Agora',
+    'ebook_section.guarantee': 'Garantia de 7 dias ou seu dinheiro de volta',
+    
     // Ebook
     'ebook.timer': 'OFERTA ESPECIAL EXPIRA EM:',
     'ebook.professional': 'SEGREDOS DE CONFEITEIRO PROFISSIONAL',
@@ -234,6 +245,17 @@ const translations = {
     // Footer
     'footer.copyright': 'Erdbeergourmet. All rights reserved.',
     
+    // Ebook Section
+    'ebook_section.title': 'Learn the Secrets of Gourmet Strawberry',
+    'ebook_section.subtitle': 'Master the professional techniques that made our product a success',
+    'ebook_section.description': 'Discover how to create perfect gourmet strawberries with our complete course. Exclusive techniques, secret recipes and professional methods that guarantee incredible results.',
+    'ebook_section.features.technique': 'Perfect glass syrup technique',
+    'ebook_section.features.recipe': 'Exclusive creamy brigadeiro recipe',
+    'ebook_section.features.temperature': 'Professional temperature control',
+    'ebook_section.features.presentation': 'Gourmet presentation tricks',
+    'ebook_section.cta': 'I Want to Learn Now',
+    'ebook_section.guarantee': '7-day guarantee or your money back',
+    
     // Ebook
     'ebook.timer': 'SPECIAL OFFER EXPIRES IN:',
     'ebook.professional': 'PROFESSIONAL PASTRY CHEF SECRETS',
@@ -366,6 +388,17 @@ const translations = {
     
     // Footer
     'footer.copyright': 'Erdbeergourmet. Alle Rechte vorbehalten.',
+    
+    // Ebook Section
+    'ebook_section.title': 'Lernen Sie die Geheimnisse der Gourmet-Erdbeere',
+    'ebook_section.subtitle': 'Meistern Sie die professionellen Techniken, die unser Produkt zum Erfolg machten',
+    'ebook_section.description': 'Entdecken Sie, wie Sie perfekte Gourmet-Erdbeeren mit unserem vollständigen Kurs erstellen. Exklusive Techniken, geheime Rezepte und professionelle Methoden, die unglaubliche Ergebnisse garantieren.',
+    'ebook_section.features.technique': 'Perfekte Glassirup-Technik',
+    'ebook_section.features.recipe': 'Exklusives cremiges Brigadeiro-Rezept',
+    'ebook_section.features.temperature': 'Professionelle Temperaturkontrolle',
+    'ebook_section.features.presentation': 'Gourmet-Präsentationstricks',
+    'ebook_section.cta': 'Ich möchte jetzt lernen',
+    'ebook_section.guarantee': '7-Tage-Garantie oder Geld zurück',
     
     // Ebook
     'ebook.timer': 'SONDERANGEBOT LÄUFT AB IN:',

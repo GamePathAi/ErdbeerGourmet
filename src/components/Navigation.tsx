@@ -22,8 +22,6 @@ const Navigation: React.FC = () => {
   const navigationItems = [
     { href: '#hero', label: t('nav.home') },
     { href: '#sobre', label: t('nav.product') },
-    { href: '#precos', label: t('nav.pricing') },
-    { href: '#conservar', label: t('nav.care') },
     { href: '#sobre-nos', label: t('nav.about') }
   ];
 

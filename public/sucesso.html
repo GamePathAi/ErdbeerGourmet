@@ -51,6 +51,9 @@ const sucessoHTML = `
     </div>
     
     <script>
+        let retryCount = 0;
+        const maxRetries = 3;
+        
         async function processAccess() {
             const urlParams = new URLSearchParams(window.location.search);
             const sessionId = urlParams.get('session_id');
@@ -78,14 +81,70 @@ const sucessoHTML = `
                     
                     // Set up access button
                     document.getElementById('access-ebook-btn').onclick = function() {
-                        window.location.href = `/ebook-acesso?token=${data.accessToken}`;
+                        window.location.href = `/ebook-acesso.html?token=${data.accessToken}`;
                     };
                 } else {
                     throw new Error(data.error || 'Acesso não encontrado');
                 }
             } catch (error) {
                 console.error('Erro ao processar acesso:', error);
-                showError(error.message);
+                
+                // Retry logic
+                if (retryCount < maxRetries) {
+                    retryCount++;
+                    console.log(`Tentativa ${retryCount} de ${maxRetries}...`);
+                    setTimeout(processAccess, 3000 * retryCount); // Increasing delay
+                    return;
+                }
+                
+                // If all retries failed, try direct Stripe verification
+                await tryDirectStripeVerification(sessionId);
+            }
+        }
+        
+        async function tryDirectStripeVerification(sessionId) {
+            try {
+                console.log('Tentando verificação direta no Stripe...');
+                const response = await fetch(`/.netlify/functions/stripe-verify/${sessionId}`);
+                const data = await response.json();
+                
+                if (response.ok && data.payment_status === 'paid') {
+                    // Payment is confirmed, try to create manual access
+                    const manualResponse = await fetch('/.netlify/functions/manual-access', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ session_id: sessionId })
+                    });
+                    
+                    const manualData = await manualResponse.json();
+                    
+                    if (manualResponse.ok && manualData.accessToken) {
+                        // Show success
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('success').style.display = 'block';
+                        
+                        // Update welcome message
+                        if (manualData.customer && manualData.customer.name) {
+                            document.getElementById('customer-welcome').textContent = 
+                                `Bem-vindo(a), ${manualData.customer.name}! Seu ebook está pronto.`;
+                        }
+                        
+                        // Set up access button
+                        document.getElementById('access-ebook-btn').onclick = function() {
+                            window.location.href = `/ebook-acesso.html?token=${manualData.accessToken}`;
+                        };
+                        return;
+                    }
+                }
+                
+                // If direct verification also failed, show error with debug link
+                showErrorWithDebug(sessionId);
+                
+            } catch (error) {
+                console.error('Erro na verificação direta:', error);
+                showErrorWithDebug(sessionId);
             }
         }
         
@@ -93,6 +152,20 @@ const sucessoHTML = `
             document.getElementById('loading').style.display = 'none';
             document.getElementById('error').style.display = 'block';
             document.getElementById('error-message').textContent = message;
+        }
+        
+        function showErrorWithDebug(sessionId) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error-message').innerHTML = `
+                Não foi possível processar seu acesso automaticamente.<br><br>
+                <strong>Seu pagamento foi confirmado!</strong><br>
+                <a href="/debug-payment.html?session_id=${sessionId}" 
+                   class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-block mt-2">
+                    🔧 Resolver Problema Agora
+                </a><br><br>
+                <small>Ou entre em contato conosco com o código: ${sessionId}</small>
+            `;
         }
         
         // Start processing when page loads
