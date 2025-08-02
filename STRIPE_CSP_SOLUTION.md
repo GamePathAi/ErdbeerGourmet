@@ -26,40 +26,43 @@
 
 ## ⚡ SOLUÇÃO IMPLEMENTADA
 
-### 1. CSP Corrigido (Arquivo: `public/_headers`)
+### 1. CSP Corrigido e Refinado (Arquivo: `public/_headers`)
 
+#### ✅ CSP Atual (Seguro e Funcional)
 ```
 Content-Security-Policy: 
-  default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; 
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' 
+  default-src 'self'; 
+  script-src 'self' 
+    https://js.stripe.com 
+    https://checkout.stripe.com; 
+  frame-src 
     https://js.stripe.com 
     https://checkout.stripe.com 
-    https://m.stripe.com 
-    https://q.stripe.com; 
-  frame-src 'self' 
-    https://js.stripe.com 
-    https://checkout.stripe.com 
-    https://hooks.stripe.com 
-    https://m.stripe.com 
-    https://q.stripe.com; 
+    https://hooks.stripe.com; 
   connect-src 'self' 
     https://api.stripe.com 
-    https://checkout.stripe.com 
     https://hooks.stripe.com 
-    https://m.stripe.com 
-    https://q.stripe.com 
-    https://r.stripe.com; 
-  img-src 'self' data: https: blob: 
+    https://checkout.stripe.com; 
+  img-src 'self' data: 
     https://q.stripe.com 
     https://checkout.stripe.com; 
   style-src 'self' 'unsafe-inline' 
-    https://fonts.googleapis.com 
-    https://checkout.stripe.com; 
-  font-src 'self' https://fonts.gstatic.com; 
-  child-src 'self' 
+    https://checkout.stripe.com 
+    https://fonts.googleapis.com; 
+  font-src 'self' 
+    https://fonts.gstatic.com; 
+  child-src 
     https://js.stripe.com 
     https://checkout.stripe.com
 ```
+
+#### 🔒 Melhorias de Segurança Implementadas
+- ❌ Removido `'unsafe-eval'` (previne execução de código dinâmico)
+- ❌ Removido `'unsafe-inline'` de script-src (previne XSS)
+- ❌ Removido `https:` genérico (restringe a domínios específicos)
+- ❌ Removido `blob:` desnecessário
+- ✅ Mantido apenas domínios Stripe essenciais
+- ✅ CSP mais restritivo mas funcional
 
 ### 2. Domínios Stripe Adicionados
 - ✅ `js.stripe.com` - SDK principal
@@ -77,12 +80,35 @@ Content-Security-Policy:
 ### Página de Teste Criada
 **URL:** https://erdbeergourmet.ch/stripe-test.html
 
+### 🛡️ Monitoramento CSP Implementado
+**Arquivo:** `public/csp-monitor.js`
+
+#### Funcionalidades do Monitor:
+- 📊 **Detecção Automática** - Captura todas as violações CSP
+- 💾 **Armazenamento Local** - Mantém histórico das últimas 50 violações
+- 🔍 **Console Logging** - Logs detalhados para desenvolvimento
+- 📤 **Exportação** - Permite download do relatório de violações
+- 🧹 **Limpeza** - Função para limpar histórico
+
+#### Comandos Disponíveis no Console:
+```javascript
+// Visualizar violações
+showCSPViolations()
+
+// Limpar histórico
+clearCSPViolations()
+
+// Exportar relatório
+exportCSPViolations()
+```
+
 ### Testes Automatizados
 1. ✅ **Stripe SDK Loading** - Verifica se SDK carrega
 2. ✅ **Stripe Initialization** - Testa inicialização
-3. ✅ **CSP Violations** - Monitora violações
+3. ✅ **CSP Violations** - Monitora violações em tempo real
 4. ✅ **Checkout Methods** - Valida métodos disponíveis
 5. ✅ **Resource Loading** - Confirma scripts carregados
+6. 🆕 **Security Monitoring** - Detecta problemas de CSP
 
 ### Checklist de Validação Manual
 
