@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✅ Acesso Confirmado - ErdbeerGourmet</title>
+    <link rel="stylesheet" href="/ebook-access.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-message {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .primary-btn {
+            background: #dc2626;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .primary-btn:hover {
+            background: #b91c1c;
+        }
+        .secondary-btn {
+            background: #059669;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .secondary-btn:hover {
+            background: #047857;
+        }
+        .help-section {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        .help-section h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+        .help-section ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+        .contact-info {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            color: #991b1b;
+            font-weight: bold;
+        }
+        @media (max-width: 640px) {
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .primary-btn, .secondary-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="success-container">
+        <h1 style="color: #059669; font-size: 2rem; margin-bottom: 1rem;">🎉 Parabéns! Seu acesso foi confirmado</h1>
+        
+        <div class="success-message">
+            <p style="margin: 0.5rem 0;">✅ Seu pagamento foi processado com sucesso</p>
+            <p style="margin: 0.5rem 0;">📧 Você deve ter recebido um email com o link de acesso</p>
+            <p style="margin: 0.5rem 0;">📱 Salve esta página nos favoritos para acesso futuro</p>
+        </div>
+        
+        <div class="action-buttons">
+            <button id="accessEbook" class="primary-btn">
+                📖 ACESSAR EBOOK AGORA
+            </button>
+            
+            <button id="openInNewTab" class="secondary-btn">
+                🔗 ABRIR EM NOVA ABA
+            </button>
+        </div>
+        
+        <div class="help-section">
+            <h3>❓ Não recebeu o email?</h3>
+            <ul>
+                <li>Verifique sua pasta de spam/lixo eletrônico</li>
+                <li>Aguarde alguns minutos (emails podem demorar)</li>
+                <li>Use este link salvo nos favoritos</li>
+                <li>O ebook ficará sempre disponível nesta página</li>
+            </ul>
+        </div>
+        
+        <div class="contact-info">
+            <p>🆘 Problemas? Entre em contato: erdbeergourmet@gmail.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Pegar token da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (!token) {
+            // Se não há token, redirecionar para página inicial
+            alert('Token não encontrado. Você será redirecionado para a página inicial.');
+            window.location.href = '/';
+        }
+        
+        // Botão de acesso direto (mesmo iframe)
+        document.getElementById('accessEbook').onclick = function() {
+            if (token) {
+                // Criar iframe para mostrar o ebook na mesma página
+                const existingIframe = document.querySelector('iframe');
+                if (existingIframe) {
+                    existingIframe.remove();
+                }
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = `/ebook/morango-gourmet-profissional.html?token=${token}`;
+                iframe.style.width = '100%';
+                iframe.style.height = '600px';
+                iframe.style.border = '2px solid #e5e7eb';
+                iframe.style.borderRadius = '8px';
+                iframe.style.marginTop = '1rem';
+                
+                document.querySelector('.success-container').appendChild(iframe);
+                
+                // Scroll para o iframe
+                iframe.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Token não encontrado. Use o link do email.');
+            }
+        };
+        
+        // Botão de abrir em nova aba (CORRIGIDO)
+        document.getElementById('openInNewTab').onclick = function() {
+            if (token) {
+                // CORREÇÃO: Passar o token para a nova aba
+                window.open(`/ebook/morango-gourmet-profissional.html?token=${token}`, '_blank');
+            } else {
+                alert('Token não encontrado. Use o link do email.');
+            }
+        };
+        
+        // Salvar token no localStorage para acesso futuro
+        if (token) {
+            localStorage.setItem('erdbeergourmet_token', token);
+        }
+    </script>
+</body>
+</html>

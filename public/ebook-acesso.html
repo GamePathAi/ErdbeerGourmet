@@ -21,18 +21,8 @@
             <div id="access-granted" style="display: none;" class="text-center">
                 <div class="text-green-600 text-4xl mb-4">✅</div>
                 <h2 class="text-xl font-bold text-green-800 mb-4">Acesso Autorizado!</h2>
-                <p id="customer-info" class="text-gray-600 mb-4">Seu ebook está pronto para acesso.</p>
-                <iframe 
-                    src="/ebook/morango-gourmet-profissional.html"
-                    class="w-full h-96 border-2 border-gray-300 rounded-lg mb-4"
-                ></iframe>
-                <a 
-                    href="/ebook/morango-gourmet-profissional.html" 
-                    target="_blank"
-                    class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
-                >
-                    📱 Abrir em Nova Aba
-                </a>
+                <p id="customer-info" class="text-gray-600 mb-4">Redirecionando para sua área de acesso...</p>
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto mb-4"></div>
             </div>
             
             <div id="access-denied" style="display: none;" class="text-center">
@@ -105,9 +95,15 @@
                if (data.customer) {
                  const customerInfo = document.getElementById('customer-info');
                  if (customerInfo) {
-                   customerInfo.textContent = `Bem-vindo(a), ${data.customer.name}!`;
+                   customerInfo.textContent = `Bem-vindo(a), ${data.customer.name}! Redirecionando...`;
                  }
                }
+               
+               // Redirecionar para página de acesso confirmado após 2 segundos
+               setTimeout(() => {
+                 window.location.href = `/acesso-confirmado.html?token=${token}`;
+               }, 2000);
+               
                return;
              }
            }
