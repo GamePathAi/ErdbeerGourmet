@@ -6,16 +6,18 @@ export default function MorangoGourmetLanding() {
   const { t, getCurrencySymbol } = useLanguage();
   
   const [timeLeft, setTimeLeft] = useState({
-    hours: 23,
-    minutes: 45,
-    seconds: 30
+    hours: 0,
+    minutes: 5,
+    seconds: 0
   });
 
   // DEBUG MODE ATIVADO
   useEffect(() => {
     console.log('🔥 EBOOK DEBUG ATIVADO');
-    console.log('ENV:', process.env.NODE_ENV);
+    console.log('ENV:', import.meta.env.MODE);
     console.log('URL:', window.location.href);
+    console.log('STRIPE_KEY:', import.meta.env.VITE_STRIPE_PUBLIC_KEY ? 'FOUND' : 'NOT_FOUND');
+    console.log('STRIPE_KEY_PREFIX:', import.meta.env.VITE_STRIPE_PUBLIC_KEY?.substring(0, 7));
     console.log('STRIPE:', !!window.Stripe);
     
     // Forçar reload de Stripe se não existir
@@ -52,6 +54,13 @@ export default function MorangoGourmetLanding() {
   const handlePurchase = async () => {
     if (!showEmailForm) {
       setShowEmailForm(true);
+      // Rolar para a seção de email
+      setTimeout(() => {
+        const emailSection = document.querySelector('.email-form-section');
+        if (emailSection) {
+          emailSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
       return;
     }
 
@@ -74,7 +83,8 @@ export default function MorangoGourmetLanding() {
       }
       
       // Create Stripe checkout session
-      const response = await fetch('/.netlify/functions/create-ebook-checkout', {
+      const baseUrl = import.meta.env.DEV ? 'http://localhost:8888' : window.location.origin;
+      const response = await fetch(`${baseUrl}/.netlify/functions/create-ebook-checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -212,7 +222,7 @@ export default function MorangoGourmetLanding() {
               </p>
               
               {showEmailForm && (
-                <div className="mb-6 space-y-4">
+                <div className="mb-6 space-y-4 email-form-section">
                   <input
                     type="text"
                     placeholder={t('ebook.name_placeholder')}

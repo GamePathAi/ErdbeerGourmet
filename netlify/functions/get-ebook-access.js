@@ -43,6 +43,25 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Test mode for development
+    if (session_id.includes('simulado')) {
+      console.log('Test mode activated for get-ebook-access:', session_id);
+      const accessToken = 'test_access_token_' + Date.now();
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ 
+          accessToken,
+          customer: {
+            email: 'teste@exemplo.com',
+            name: 'Usuário Teste'
+          },
+          purchaseDate: new Date().toISOString()
+        })
+      };
+    }
+
     // Verify session with Stripe
     const session = await stripe.checkout.sessions.retrieve(session_id);
     

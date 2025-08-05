@@ -40,6 +40,31 @@ exports.handler = async (event, context) => {
 
     console.log('Verifying session:', sessionId);
 
+    // Test mode for development
+    if (sessionId.includes('simulado')) {
+      console.log('Test mode activated for session:', sessionId);
+      const response = {
+        session_id: sessionId,
+        payment_status: 'paid',
+        amount_total: 4700,
+        currency: 'brl',
+        customer_email: 'teste@exemplo.com',
+        customer_name: 'Usuário Teste',
+        created: Math.floor(Date.now() / 1000),
+        mode: 'payment',
+        status: 'complete',
+        line_items: [],
+        payment_intent_status: 'succeeded',
+        payment_method: ['card']
+      };
+      
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify(response)
+      };
+    }
+
     // Retrieve session from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ['line_items', 'customer']

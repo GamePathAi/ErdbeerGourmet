@@ -118,9 +118,8 @@ exports.handler = async (event, context) => {
         customer_id: customer.id,
         stripe_session_id: session.id,
         status: 'pending',
-        purchase_date: new Date().toISOString(),
-        amount: 47.00, // Base price in BRL
-        currency: 'BRL' // Base currency - Stripe handles conversion
+        amount_cents: 4700, // Amount in cents
+        currency: 'brl'
       });
 
     return {

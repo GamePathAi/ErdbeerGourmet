@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variáveis CSS para paleta crafthand/artesanal */
+:root {
+    --cream: #faf7f0;
+    --paper: #f5f1e8;
+    --kraft: #d4a574;
+    --wood: #8b6f47;
+    --earth: #6b4423;
+    --clay: #a0522d;
+    --rust: #b7410e;
+    --sage: #87a96b;
+    --charcoal: #3c3c3c;
+    --ink: #2d2d2d;
+    --shadow: rgba(60, 60, 60, 0.15);
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    line-height: 1.6;
+    color: var(--ink);
+    background-color: var(--cream);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Tipografia */
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
