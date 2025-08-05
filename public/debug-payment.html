@@ -90,7 +90,8 @@
             showStatus('🔍 Verificando pagamento no Stripe...', 'loading');
             
             try {
-                const response = await fetch(`/.netlify/functions/stripe-verify/${sessionId}`);
+                const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
+                const response = await fetch(`${baseUrl}/.netlify/functions/stripe-verify/${sessionId}`);
                 const data = await response.json();
                 
                 if (response.ok) {
@@ -115,7 +116,8 @@
             showStatus('🔓 Criando acesso manual...', 'loading');
             
             try {
-                const response = await fetch('http://localhost:8888/.netlify/functions/manual-access', {
+                const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
+                const response = await fetch(`${baseUrl}/.netlify/functions/manual-access`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

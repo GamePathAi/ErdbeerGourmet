@@ -3273,7 +3273,8 @@
             
             try {
                 // Verificar token com a API
-                const response = await fetch(`/.netlify/functions/verify-ebook-access?token=${token}`);
+                const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
+                const response = await fetch(`${baseUrl}/.netlify/functions/verify-ebook-access?token=${token}`);
                 const data = await response.json();
                 
                 if (response.ok && data.hasAccess) {

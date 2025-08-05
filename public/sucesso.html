@@ -65,7 +65,8 @@ const sucessoHTML = `
             
             try {
                 // Get access token from session
-                const response = await fetch(`/.netlify/functions/get-ebook-access?session_id=${sessionId}`);
+                const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
+                const response = await fetch(`${baseUrl}/.netlify/functions/get-ebook-access?session_id=${sessionId}`);
                 const data = await response.json();
                 
                 if (response.ok && data.accessToken) {
@@ -105,12 +106,13 @@ const sucessoHTML = `
         async function tryDirectStripeVerification(sessionId) {
             try {
                 console.log('Tentando verificação direta no Stripe...');
-                const response = await fetch(`/.netlify/functions/stripe-verify/${sessionId}`);
+                const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
+                const response = await fetch(`${baseUrl}/.netlify/functions/stripe-verify/${sessionId}`);
                 const data = await response.json();
                 
                 if (response.ok && data.payment_status === 'paid') {
                     // Payment is confirmed, try to create manual access
-                    const manualResponse = await fetch('/.netlify/functions/manual-access', {
+                    const manualResponse = await fetch(`${baseUrl}/.netlify/functions/manual-access`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

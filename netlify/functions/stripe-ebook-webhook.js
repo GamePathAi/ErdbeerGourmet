@@ -12,22 +12,39 @@ function generateAccessToken() {
   return crypto.randomBytes(32).toString('hex');
 }
 
-// Configure email transporter
-const transporter = nodemailer.createTransporter({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: process.env.SMTP_PORT || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+// Configure email transporter with error handling
+let transporter;
+try {
+  transporter = nodemailer.createTransporter({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    },
+    // Add timeout and connection options
+    connectionTimeout: 10000,
+    greetingTimeout: 5000,
+    socketTimeout: 10000
+  });
+  console.log('Email transporter configured successfully');
+} catch (error) {
+  console.error('Error configuring email transporter:', error);
+  transporter = null;
+}
 
 async function sendThankYouEmail(customerEmail, accessToken) {
+  // Check if transporter is available
+  if (!transporter) {
+    console.error('Email transporter not configured - cannot send email');
+    return false;
+  }
+  
   const accessLink = `https://erdbeergourmet.ch/ebook-acesso.html?token=${accessToken}`;
   
   const mailOptions = {
-    from: 'ErdbeerGourmet <contato@erdbeergourmet.com>',
+    from: process.env.SMTP_FROM || 'ErdbeerGourmet <contato@erdbeergourmet.com>',
     to: customerEmail,
     subject: '🍓 ErdbeerGourmet agradece a sua compra!',
     html: `
@@ -54,6 +71,7 @@ async function sendThankYouEmail(customerEmail, accessToken) {
   };
   
   try {
+    console.log(`Attempting to send email to ${customerEmail}`);
     await transporter.sendMail(mailOptions);
     console.log(`Thank you email sent successfully to ${customerEmail}`);
     return true;
@@ -64,15 +82,33 @@ async function sendThankYouEmail(customerEmail, accessToken) {
 }
 
 exports.handler = async (event, context) => {
+  console.log('🔍 Webhook handler started');
+  console.log('Environment check:', {
+    hasStripeSecret: !!process.env.STRIPE_WEBHOOK_SECRET,
+    hasSupabaseUrl: !!process.env.VITE_SUPABASE_URL,
+    hasSupabaseKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+    hasSmtpConfig: !!process.env.SMTP_USER && !!process.env.SMTP_PASS
+  });
+  
   const sig = event.headers['stripe-signature'];
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!endpointSecret) {
+    console.error('❌ STRIPE_WEBHOOK_SECRET not configured');
+    return {
+      statusCode: 500,
+      body: 'Webhook secret not configured'
+    };
+  }
 
   let stripeEvent;
 
   try {
+    console.log('🔐 Verifying webhook signature...');
     stripeEvent = stripe.webhooks.constructEvent(event.body, sig, endpointSecret);
+    console.log('✅ Webhook signature verified, event type:', stripeEvent.type);
   } catch (err) {
-    console.error('Webhook signature verification failed:', err.message);
+    console.error('❌ Webhook signature verification failed:', err.message);
     return {
       statusCode: 400,
       body: `Webhook Error: ${err.message}`
@@ -80,16 +116,25 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    console.log('📦 Processing event:', stripeEvent.type);
+    
     switch (stripeEvent.type) {
       case 'checkout.session.completed':
+        console.log('🛒 Processing checkout.session.completed');
         const session = stripeEvent.data.object;
+        console.log('Session ID:', session.id);
+        console.log('Session metadata:', session.metadata);
         
         // Verify this is an ebook purchase
         if (session.metadata?.product_type === 'ebook') {
+          console.log('✅ Confirmed ebook purchase');
+          
           // Generate access token
           const accessToken = generateAccessToken();
+          console.log('🔑 Access token generated:', accessToken.substring(0, 10) + '...');
           
           // Update the purchase record
+          console.log('💾 Updating purchase record in Supabase...');
           const { error: updateError } = await supabase
             .from('ebook_purchases')
             .update({
@@ -99,19 +144,30 @@ exports.handler = async (event, context) => {
               completed_at: new Date().toISOString()
             })
             .eq('stripe_session_id', session.id);
+          
+          console.log('Update result - error:', updateError);
 
           if (updateError) {
-            console.error('Error updating ebook purchase:', updateError);
+            console.error('❌ Error updating ebook purchase:', updateError);
             throw updateError;
           }
+          
+          console.log('✅ Purchase record updated successfully');
 
           // Send thank you email with access link
           const customerEmail = session.customer_details?.email;
+          console.log('📧 Customer email:', customerEmail);
+          
           if (customerEmail) {
-            await sendThankYouEmail(customerEmail, accessToken);
-            console.log(`Ebook access granted and email sent for session ${session.id}`);
+            console.log('📤 Sending thank you email...');
+            const emailSent = await sendThankYouEmail(customerEmail, accessToken);
+            if (emailSent) {
+              console.log(`✅ Ebook access granted and email sent for session ${session.id}`);
+            } else {
+              console.log(`⚠️ Ebook access granted for session ${session.id} but email failed`);
+            }
           } else {
-            console.log(`Ebook access granted for session ${session.id} but no email found`);
+            console.log(`⚠️ Ebook access granted for session ${session.id} but no email found`);
           }
         }
         break;
@@ -146,18 +202,34 @@ exports.handler = async (event, context) => {
         break;
 
       default:
-        console.log(`Unhandled event type ${stripeEvent.type}`);
+        console.log(`⚠️ Unhandled event type ${stripeEvent.type}`);
     }
 
+    console.log('✅ Webhook processed successfully');
     return {
       statusCode: 200,
       body: JSON.stringify({ received: true })
     };
   } catch (error) {
-    console.error('Error processing webhook:', error);
+    console.error('❌ Error processing webhook:', error);
+    console.error('Error stack:', error.stack);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error' })
+      body: `Server Error: ${error.message}`
     };
   }
 };
+
+// Add a simple health check
+if (require.main === module) {
+  console.log('🔍 Webhook function loaded successfully');
+  console.log('Environment variables check:', {
+    STRIPE_SECRET_KEY: !!process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: !!process.env.STRIPE_WEBHOOK_SECRET,
+    VITE_SUPABASE_URL: !!process.env.VITE_SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+    SMTP_USER: !!process.env.SMTP_USER,
+    SMTP_PASS: !!process.env.SMTP_PASS,
+    SMTP_FROM: !!process.env.SMTP_FROM
+  });
+}

@@ -83,7 +83,8 @@ export default function MorangoGourmetLanding() {
       }
       
       // Create Stripe checkout session
-      const baseUrl = import.meta.env.DEV ? 'http://localhost:8888' : window.location.origin;
+      // Para desenvolvimento local, sempre usar localhost:8888 onde as funções Netlify estão rodando
+      const baseUrl = (window.location.hostname === 'localhost' && window.location.port !== '4173') ? 'http://localhost:8888' : window.location.origin;
       const response = await fetch(`${baseUrl}/.netlify/functions/create-ebook-checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
