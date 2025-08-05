@@ -112,6 +112,10 @@
             <button id="openInNewTab" class="secondary-btn">
                 🔗 ABRIR EM NOVA ABA
             </button>
+            
+            <button id="copyLink" class="secondary-btn">
+                📋 COPIAR LINK DO EBOOK
+            </button>
         </div>
         
         <div class="help-section">
@@ -170,7 +174,47 @@
         document.getElementById('openInNewTab').onclick = function() {
             if (token) {
                 // CORREÇÃO: Passar o token para a nova aba
-                window.open(`/ebook/morango-gourmet-profissional.html?token=${token}`, '_blank');
+                const newWindow = window.open(`/ebook/morango-gourmet-profissional.html?token=${token}`, '_blank');
+                
+                // Verificar se o pop-up foi bloqueado
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                    // Pop-up foi bloqueado, mostrar instruções
+                    alert('⚠️ Pop-up bloqueado!\n\nPor favor:\n1. Permita pop-ups para este site\n2. Ou copie o link abaixo e cole em uma nova aba:\n\n' + window.location.origin + `/ebook/morango-gourmet-profissional.html?token=${token}`);
+                    
+                    // Copiar link para clipboard como backup
+                    navigator.clipboard.writeText(window.location.origin + `/ebook/morango-gourmet-profissional.html?token=${token}`).then(() => {
+                        console.log('Link copiado para clipboard');
+                    }).catch(() => {
+                        console.log('Não foi possível copiar automaticamente');
+                    });
+                }
+            } else {
+                alert('Token não encontrado. Use o link do email.');
+            }
+        };
+        
+        // Botão de copiar link
+        document.getElementById('copyLink').onclick = function() {
+            if (token) {
+                const ebookLink = window.location.origin + `/ebook/morango-gourmet-profissional.html?token=${token}`;
+                
+                navigator.clipboard.writeText(ebookLink).then(() => {
+                    // Feedback visual de sucesso
+                    const button = document.getElementById('copyLink');
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '✅ LINK COPIADO!';
+                    button.style.backgroundColor = '#10b981';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.style.backgroundColor = '';
+                    }, 2000);
+                    
+                    alert('✅ Link copiado!\n\nCole em uma nova aba do navegador para acessar o e-book.');
+                }).catch(() => {
+                    // Fallback se clipboard não funcionar
+                    alert('📋 Copie este link manualmente:\n\n' + ebookLink);
+                });
             } else {
                 alert('Token não encontrado. Use o link do email.');
             }
