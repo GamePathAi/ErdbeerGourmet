@@ -1,7 +1,12 @@
 # Ebook route - redirect to React app with ebook component
 /ebook    /index.html   200
 
-# SPA fallback
+# Static HTML pages should not be redirected
+/acesso-confirmado.html  /acesso-confirmado.html  200
+/ebook-acesso.html       /ebook-acesso.html       200
+/ebook/*                 /ebook/:splat            200
+
+# SPA fallback (only for routes that don't match static files)
 /*    /index.html   200
 
 # API routes to Netlify Functions
